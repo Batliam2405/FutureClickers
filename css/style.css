@@ -1,0 +1,1641 @@
+/*==================================================
+ FUTURE CLICKER
+ Partie 1
+ Base - Fond - Interface
+==================================================*/
+
+/*==============================
+ RESET
+==============================*/
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+/*==============================
+ FOND
+==============================*/
+
+body{
+
+    color:white;
+
+    background:
+    linear-gradient(
+        135deg,
+        #0b1020,
+        #141b2d,
+        #1b2340
+    );
+
+    position:relative;
+
+}
+
+/* Motif animé */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    left:0;
+    top:0;
+
+    width:300%;
+    height:300%;
+
+    background:
+
+    radial-gradient(
+
+        circle,
+
+        rgba(0,255,255,.10) 2px,
+
+        transparent 2px
+
+    );
+
+    background-size:70px 70px;
+
+    animation:
+    backgroundMove 30s linear infinite;
+
+    z-index:-5;
+
+}
+
+@keyframes backgroundMove{
+
+    from{
+
+        transform:
+        translate(0,0);
+
+    }
+
+    to{
+
+        transform:
+        translate(-300px,-300px);
+
+    }
+
+}
+
+/* Reflets */
+
+body::after{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    background:
+
+    radial-gradient(
+
+        circle at 20% 20%,
+
+        rgba(0,255,255,.08),
+
+        transparent 30%
+
+    ),
+
+    radial-gradient(
+
+        circle at 80% 30%,
+
+        rgba(0,120,255,.08),
+
+        transparent 35%
+
+    ),
+
+    radial-gradient(
+
+        circle at 50% 90%,
+
+        rgba(255,255,255,.03),
+
+        transparent 30%
+
+    );
+
+    z-index:-4;
+
+}
+
+/*==============================
+ CONTENEUR PRINCIPAL
+==============================*/
+
+#container{
+
+    width:100%;
+    height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:25px;
+
+    padding:20px;
+
+    position:relative;
+
+    z-index:100;
+
+}
+
+/*==============================
+ JEU
+==============================*/
+
+#game{
+
+    flex:1;
+
+    height:90vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:
+
+    rgba(15,20,40,.88);
+
+    border-radius:25px;
+
+    border:
+
+    2px solid rgba(0,255,255,.30);
+
+    box-shadow:
+
+    0 0 35px rgba(0,255,255,.20);
+
+    position:relative;
+
+    z-index:101;
+
+}
+
+/*==============================
+ TITRES
+==============================*/
+
+h1{
+
+    color:#00ffff;
+
+    margin-bottom:15px;
+
+    text-shadow:
+
+    0 0 15px cyan,
+
+    0 0 30px cyan;
+
+}
+
+#score{
+
+    text-align:center;
+
+    font-size:24px;
+
+    line-height:1.6;
+
+    margin-bottom:20px;
+
+}
+
+/*==============================
+ BOUTONS
+==============================*/
+
+button{
+
+    cursor:pointer;
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:15px 28px;
+
+    font-size:18px;
+
+    color:white;
+
+    background:#00bfff;
+
+    transition:.25s;
+
+}
+
+button:hover{
+
+    background:cyan;
+
+    color:black;
+
+    transform:translateY(-2px);
+
+}
+
+/*==============================
+ BOUTIQUE
+==============================*/
+
+#shop{
+
+    width:320px;
+
+    height:90vh;
+
+    background:#1c2233;
+
+    border-radius:20px;
+
+    border:
+
+    2px solid rgba(255,255,255,.08);
+
+    box-shadow:
+
+    0 0 25px rgba(0,0,0,.50);
+
+    padding:20px;
+
+    overflow-y:auto;
+
+    position:relative;
+
+    z-index:101;
+
+}
+
+#shop h2{
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+}
+
+/*==============================
+ CARTES DE LA BOUTIQUE
+==============================*/
+
+.shopCard{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    background:#38455d;
+
+    border-radius:12px;
+
+    padding:15px;
+
+    margin-bottom:15px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.shopCard:hover{
+
+    background:#4d5d79;
+
+    transform:scale(1.03);
+
+}
+
+.shopIcon{
+
+    font-size:38px;
+
+}
+
+.shopInfo{
+
+    flex:1;
+
+}
+
+.shopInfo h3{
+
+    margin-bottom:5px;
+
+}
+
+.shopInfo p{
+
+    color:#d4d4d4;
+
+    font-size:13px;
+
+}
+
+.shopInfo span{
+
+    color:#00ffff;
+
+    font-weight:bold;
+
+}
+
+/*==================================================
+ FUTURE CLICKER
+ Partie 2
+ Réacteur futuriste
+==================================================*/
+
+/*==============================
+ REACTEUR
+==============================*/
+
+#reactor{
+
+    position:relative;
+
+    width:250px;
+    height:250px;
+
+    margin:30px auto;
+
+    cursor:pointer;
+
+    user-select:none;
+
+    transition:transform .15s;
+
+}
+
+/*==============================
+ NOYAU
+==============================*/
+
+#coreCenter{
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:90px;
+    height:90px;
+
+    transform:translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:
+
+    radial-gradient(
+
+        circle,
+
+        #b8ffff,
+
+        #00d8ff,
+
+        #0077ff
+
+    );
+
+    box-shadow:
+
+        0 0 20px cyan,
+        0 0 50px cyan,
+        0 0 90px cyan,
+        0 0 140px rgba(0,255,255,.5);
+
+    animation:
+    corePulse 2s ease-in-out infinite;
+
+}
+
+/*==============================
+ ANNEAUX
+==============================*/
+
+.ring{
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    border-radius:50%;
+
+    transform:
+    translate(-50%,-50%);
+
+}
+
+/* Grand */
+
+.ring1{
+
+    width:220px;
+    height:220px;
+
+    border:4px solid cyan;
+
+    animation:
+    rotateClockwise 10s linear infinite;
+
+}
+
+/* Moyen */
+
+.ring2{
+
+    width:170px;
+    height:170px;
+
+    border:4px solid #00aaff;
+
+    animation:
+    rotateReverse 6s linear infinite;
+
+}
+
+/* Petit */
+
+.ring3{
+
+    width:120px;
+    height:120px;
+
+    border:3px solid white;
+
+    animation:
+    rotateClockwise 4s linear infinite;
+
+}
+
+/*==============================
+ ORBITES
+==============================*/
+
+.ring::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:12px;
+    height:12px;
+
+    border-radius:50%;
+
+    background:cyan;
+
+    top:-6px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    box-shadow:
+
+        0 0 10px cyan,
+        0 0 20px cyan;
+
+}
+
+/*==============================
+ PULSATION
+==============================*/
+
+@keyframes corePulse{
+
+    0%{
+
+        transform:
+        translate(-50%,-50%)
+        scale(1);
+
+    }
+
+    50%{
+
+        transform:
+        translate(-50%,-50%)
+        scale(1.12);
+
+    }
+
+    100%{
+
+        transform:
+        translate(-50%,-50%)
+        scale(1);
+
+    }
+
+}
+
+/*==============================
+ ROTATIONS
+==============================*/
+
+@keyframes rotateClockwise{
+
+    from{
+
+        transform:
+        translate(-50%,-50%)
+        rotate(0deg);
+
+    }
+
+    to{
+
+        transform:
+        translate(-50%,-50%)
+        rotate(360deg);
+
+    }
+
+}
+
+@keyframes rotateReverse{
+
+    from{
+
+        transform:
+        translate(-50%,-50%)
+        rotate(360deg);
+
+    }
+
+    to{
+
+        transform:
+        translate(-50%,-50%)
+        rotate(0deg);
+
+    }
+
+}
+
+/*==============================
+ ANIMATION CLIC
+==============================*/
+
+#reactor.clicked{
+
+    animation:
+    reactorClick .18s ease;
+
+}
+
+@keyframes reactorClick{
+
+    0%{
+
+        transform:scale(1);
+
+    }
+
+    40%{
+
+        transform:scale(.90);
+
+    }
+
+    70%{
+
+        transform:scale(1.06);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+    }
+
+}
+
+/*==============================
+ FLASH
+==============================*/
+
+#reactor.clicked #coreCenter{
+
+    box-shadow:
+
+        0 0 35px cyan,
+        0 0 80px cyan,
+        0 0 140px white,
+        0 0 220px rgba(255,255,255,.7);
+
+}
+
+/*==============================
+ HALO
+==============================*/
+
+#reactor::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:260px;
+    height:260px;
+
+    transform:
+    translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:
+
+    radial-gradient(
+
+        circle,
+
+        rgba(0,255,255,.18),
+
+        transparent 70%
+
+    );
+
+    animation:
+    haloPulse 3s infinite;
+
+    z-index:-1;
+
+}
+
+@keyframes haloPulse{
+
+    0%{
+
+        transform:
+        translate(-50%,-50%)
+        scale(.95);
+
+        opacity:.5;
+
+    }
+
+    50%{
+
+        transform:
+        translate(-50%,-50%)
+        scale(1.08);
+
+        opacity:1;
+
+    }
+
+    100%{
+
+        transform:
+        translate(-50%,-50%)
+        scale(.95);
+
+        opacity:.5;
+
+    }
+
+}
+
+/*==================================================
+ FUTURE CLICKER
+ Partie 3
+ Ville futuriste
+==================================================*/
+
+/*==============================
+ VILLE
+==============================*/
+
+#city{
+
+    position:fixed;
+
+    left:0;
+    bottom:0;
+
+    width:100%;
+    height:240px;
+
+    display:flex;
+
+    justify-content:space-around;
+
+    align-items:flex-end;
+
+    pointer-events:none;
+
+    z-index:5;
+
+}
+
+/*==============================
+ BATIMENT
+==============================*/
+
+.building{
+
+    position:relative;
+
+    width:90px;
+
+    background:
+    linear-gradient(
+        to top,
+        #101828,
+        #25364f
+    );
+
+    border-top:2px solid cyan;
+
+    border-radius:6px 6px 0 0;
+
+    overflow:hidden;
+
+    transition:.4s;
+
+    box-shadow:
+
+        0 0 10px rgba(0,255,255,.15);
+
+}
+
+/*==============================
+ FENETRES
+==============================*/
+
+.building::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:8px;
+
+    background:
+
+    repeating-linear-gradient(
+
+        to bottom,
+
+        rgba(0,255,255,.8) 0px,
+
+        rgba(0,255,255,.8) 3px,
+
+        transparent 3px,
+
+        transparent 16px
+
+    ),
+
+    repeating-linear-gradient(
+
+        to right,
+
+        rgba(0,255,255,.8) 0px,
+
+        rgba(0,255,255,.8) 3px,
+
+        transparent 3px,
+
+        transparent 18px
+
+    );
+
+    opacity:.12;
+
+    transition:.4s;
+
+}
+
+/*==============================
+ LUMIERES
+==============================*/
+
+.building.powered{
+
+    box-shadow:
+
+        0 0 12px cyan,
+
+        0 0 30px cyan,
+
+        0 0 60px cyan;
+
+}
+
+.building.powered::before{
+
+    opacity:.95;
+
+}
+
+/*==============================
+ TAILLES
+==============================*/
+
+.b1{height:120px;}
+.b2{height:190px;}
+.b3{height:140px;}
+.b4{height:220px;}
+.b5{height:160px;}
+.b6{height:200px;}
+.b7{height:150px;}
+.b8{height:210px;}
+.b9{height:170px;}
+.b10{height:130px;}
+
+/*==============================
+ ANTENNES
+==============================*/
+
+.building::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+
+    top:-20px;
+
+    transform:translateX(-50%);
+
+    width:3px;
+
+    height:20px;
+
+    background:cyan;
+
+    box-shadow:0 0 10px cyan;
+
+}
+
+/*==============================
+ CLIGNOTEMENT
+==============================*/
+
+.building.powered::after{
+
+    animation:antennaBlink 1s infinite;
+
+}
+
+@keyframes antennaBlink{
+
+    0%{
+
+        opacity:1;
+
+    }
+
+    50%{
+
+        opacity:.25;
+
+    }
+
+    100%{
+
+        opacity:1;
+
+    }
+
+}
+
+/*==============================
+ REFLET
+==============================*/
+
+.building:hover{
+
+    transform:translateY(-3px);
+
+}
+
+/*==================================================
+ FUTURE CLICKER
+ Partie 4
+ Voitures - Robots - Effets
+==================================================*/
+
+/*==============================
+ VOITURES VOLANTES
+==============================*/
+
+#flyingCars{
+
+    position:fixed;
+
+    inset:0;
+
+    overflow:hidden;
+
+    pointer-events:none;
+
+    z-index:40;
+
+}
+
+.car{
+
+    position:absolute;
+
+    width:70px;
+
+    height:24px;
+
+    animation:fly linear forwards;
+
+}
+
+.carBody{
+
+    width:100%;
+
+    height:100%;
+
+    border-radius:20px;
+
+    position:relative;
+
+    box-shadow:
+    0 0 12px currentColor;
+
+}
+
+/* Cockpit */
+
+.carBody::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:18px;
+
+    top:4px;
+
+    width:28px;
+
+    height:12px;
+
+    border-radius:8px;
+
+    background:rgba(255,255,255,.75);
+
+}
+
+/* Trainée lumineuse */
+
+.carBody::after{
+
+    content:"";
+
+    position:absolute;
+
+    right:-18px;
+
+    top:8px;
+
+    width:28px;
+
+    height:8px;
+
+    background:
+    linear-gradient(
+        to right,
+        rgba(0,255,255,.9),
+        transparent
+    );
+
+}
+
+@keyframes fly{
+
+    from{
+
+        transform:
+        translateX(-120px);
+
+    }
+
+    to{
+
+        transform:
+        translateX(calc(100vw + 180px));
+
+    }
+
+}
+
+/*==============================
+ TEXTE FLOTTANT
+==============================*/
+
+.floatingText{
+
+    position:fixed;
+
+    color:#00ffff;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    pointer-events:none;
+
+    text-shadow:
+
+        0 0 8px cyan,
+
+        0 0 20px cyan;
+
+    animation:
+
+    crystalFloat 1s forwards;
+
+}
+
+@keyframes crystalFloat{
+
+    from{
+
+        transform:
+        translateY(0)
+        scale(1);
+
+        opacity:1;
+
+    }
+
+    to{
+
+        transform:
+        translateY(-90px)
+        scale(1.2);
+
+        opacity:0;
+
+    }
+
+}
+
+/*==============================
+ ROBOTS
+==============================*/
+
+#robots{
+
+    position:absolute;
+
+    top:20px;
+
+    left:120px;
+
+    width:calc(100% - 120px);
+
+    height:90px;
+
+    pointer-events:none;
+
+    z-index:50;
+
+}
+
+.robot{
+
+    position:absolute;
+
+    width:34px;
+
+    height:56px;
+
+    animation:
+    robotWalk 6s ease-in-out infinite;
+
+}
+
+/*==============================
+ TETE
+==============================*/
+
+.robot .head{
+
+    width:22px;
+
+    height:18px;
+
+    margin:auto;
+
+    border-radius:6px;
+
+    background:#2d3242;
+
+    border:2px solid #cfd8dc;
+
+    position:relative;
+
+    box-shadow:
+    0 0 8px cyan;
+
+}
+
+/* Yeux */
+
+.robot .head::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:4px;
+
+    top:6px;
+
+    width:14px;
+
+    height:4px;
+
+    background:cyan;
+
+    border-radius:4px;
+
+    box-shadow:
+
+        0 0 10px cyan,
+
+        0 0 18px cyan;
+
+}
+
+/*==============================
+ CORPS
+==============================*/
+
+.robot .body{
+
+    width:26px;
+
+    height:24px;
+
+    margin:auto;
+
+    margin-top:4px;
+
+    border-radius:6px;
+
+    background:
+
+    linear-gradient(
+
+        #5f6b82,
+
+        #414d64
+
+    );
+
+    border:2px solid #cfd8dc;
+
+    position:relative;
+
+}
+
+/* Réacteur */
+
+.robot .body::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:9px;
+
+    top:7px;
+
+    width:8px;
+
+    height:8px;
+
+    border-radius:50%;
+
+    background:cyan;
+
+    box-shadow:
+
+        0 0 10px cyan,
+
+        0 0 20px cyan,
+
+        0 0 35px cyan;
+
+    animation:
+
+    robotCore 1.6s infinite;
+
+}
+
+@keyframes robotCore{
+
+    50%{
+
+        transform:scale(1.35);
+
+    }
+
+}
+
+/*==============================
+ JAMBES
+==============================*/
+
+.robot .legs{
+
+    width:18px;
+
+    height:12px;
+
+    margin:auto;
+
+    border-left:3px solid #d8dde7;
+
+    border-right:3px solid #d8dde7;
+
+}
+
+/*==============================
+ MARCHE
+==============================*/
+
+@keyframes robotWalk{
+
+    0%{
+
+        transform:
+        translateX(0);
+
+    }
+
+    50%{
+
+        transform:
+        translateX(90px);
+
+    }
+
+    100%{
+
+        transform:
+        translateX(0);
+
+    }
+
+}
+
+/*======================================
+=            ROBOTS
+======================================*/
+
+#robots{
+    position:absolute;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    width:90%;
+    height:120px;
+    pointer-events:none;
+    z-index:30;
+}
+
+.robot{
+    position:absolute;
+    width:34px;
+    height:54px;
+    animation:robotMove 6s ease-in-out infinite;
+}
+
+.robot .head{
+    width:22px;
+    height:18px;
+    margin:auto;
+    background:#2b2f3a;
+    border:2px solid #d0d6e5;
+    border-radius:6px;
+    position:relative;
+    box-shadow:0 0 8px cyan;
+}
+
+.robot .head::before{
+    content:"";
+    position:absolute;
+    left:4px;
+    top:6px;
+    width:14px;
+    height:4px;
+    background:cyan;
+    border-radius:5px;
+    box-shadow:0 0 10px cyan;
+}
+
+.robot .body{
+    width:26px;
+    height:24px;
+    margin:auto;
+    margin-top:4px;
+    background:#4a5568;
+    border:2px solid #d8dde7;
+    border-radius:6px;
+    position:relative;
+}
+
+.robot .body::before{
+    content:"";
+    position:absolute;
+    left:8px;
+    top:7px;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:cyan;
+    box-shadow:
+        0 0 10px cyan,
+        0 0 20px cyan;
+}
+
+.robot .legs{
+    width:18px;
+    height:10px;
+    margin:auto;
+    border-left:3px solid #d8dde7;
+    border-right:3px solid #d8dde7;
+}
+
+@keyframes robotMove{
+    0%{transform:translateX(0);}
+    50%{transform:translateX(70px);}
+    100%{transform:translateX(0);}
+}
+
+/*======================================
+=            BATTERIES
+======================================*/
+
+#batteries{
+    position:absolute;
+    top:25px;
+    left:50px;
+    display:flex;
+    gap:0;
+    pointer-events:none;
+    z-index:25;
+}
+
+.battery{
+    position:relative;
+    width:110px;
+    height:18px;
+    background:linear-gradient(#687388,#40495d);
+    border-top:2px solid cyan;
+    border-bottom:2px solid cyan;
+    box-shadow:0 0 10px rgba(0,255,255,.4);
+}
+
+.battery::before,
+.battery::after{
+    content:"";
+    position:absolute;
+    width:5px;
+    height:45px;
+    background:#6c7486;
+    top:18px;
+}
+
+.battery::before{
+    left:15px;
+}
+
+.battery::after{
+    right:15px;
+}
+
+.batteryStation{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:18px;
+}
+
+.batteryBody{
+    width:42px;
+    height:34px;
+    border-radius:8px;
+    background:linear-gradient(#77849c,#49546b);
+    border:2px solid cyan;
+    box-shadow:0 0 15px cyan;
+}
+
+.batteryCrystal{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    top:-22px;
+    width:16px;
+    height:16px;
+    border-radius:50%;
+    background:cyan;
+    box-shadow:
+        0 0 12px cyan,
+        0 0 30px cyan;
+    animation:batteryPulse 1.5s infinite;
+}
+
+@keyframes batteryPulse{
+    0%{transform:translateX(-50%) scale(1);}
+    50%{transform:translateX(-50%) scale(1.25);}
+    100%{transform:translateX(-50%) scale(1);}
+}
+
+/*======================================
+=            USINES
+======================================*/
+
+#factoryContainer{
+    position:fixed;
+    left:0;
+    bottom:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:20;
+}
+
+.factory{
+    position:absolute;
+    width:110px;
+    height:160px;
+    background:linear-gradient(#394968,#1f2941);
+    border:2px solid cyan;
+    border-radius:12px;
+    box-shadow:0 0 20px cyan;
+}
+
+.factoryRoof{
+    position:absolute;
+    top:-12px;
+    left:8px;
+    width:94px;
+    height:18px;
+    background:#00dfff;
+    border-radius:8px;
+    box-shadow:0 0 15px cyan;
+}
+
+.factoryTower{
+    position:absolute;
+    width:18px;
+    height:60px;
+    top:-45px;
+    left:18px;
+    background:#5b687d;
+    border-radius:5px;
+}
+
+.tower2{
+    left:72px;
+    height:80px;
+}
+
+.factoryDoor{
+    position:absolute;
+    bottom:0;
+    left:42px;
+    width:28px;
+    height:40px;
+    background:#111;
+    border-top:2px solid cyan;
+}
+
+.factoryWindows{
+    position:absolute;
+    width:18px;
+    height:50px;
+    top:35px;
+    left:12px;
+    background:repeating-linear-gradient(
+        to bottom,
+        cyan 0,
+        cyan 5px,
+        transparent 5px,
+        transparent 10px
+    );
+}
+
+.win2{
+    left:46px;
+}
+
+.win3{
+    left:80px;
+}
+
+.factoryAntenna{
+    position:absolute;
+    width:4px;
+    height:40px;
+    background:cyan;
+    top:-78px;
+    left:82px;
+    box-shadow:0 0 10px cyan;
+}
+
+.factoryAntenna::after{
+    content:"";
+    position:absolute;
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:red;
+    top:-8px;
+    left:-3px;
+    animation:blink 1s infinite;
+}
+
+@keyframes blink{
+    50%{
+        opacity:.2;
+    }
+}
+
+/*======================================
+=            SUCCÈS
+======================================*/
+
+#achievements{
+    width:320px;
+    margin-top:20px;
+    padding:15px;
+    background:#1c2233;
+    border-radius:18px;
+    border:2px solid cyan;
+    box-shadow:0 0 20px rgba(0,255,255,.25);
+    max-height:260px;
+    overflow-y:auto;
+}
+
+.achievement{
+    background:#2d364b;
+    margin-bottom:10px;
+    padding:12px;
+    border-radius:10px;
+    opacity:.35;
+    transition:.3s;
+}
+
+.achievement.unlocked{
+    opacity:1;
+    border:2px solid #00ff88;
+    box-shadow:0 0 15px #00ff88;
+}
