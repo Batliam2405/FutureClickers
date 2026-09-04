@@ -62,9 +62,6 @@ const researchMenu = document.getElementById("researchMenu");
 
 const closeResearch = document.getElementById("closeResearch");
 
-const researchLabButton =
-document.getElementById("researchLab");
-
 const labResearchPrice = 5000;
 
 // Prix
@@ -1267,11 +1264,6 @@ function researchLab(){
 
     alert("🧪 Laboratoire amélioré !");
 }
-
-researchLabButton.addEventListener(
-    "click",
-    researchLab
-);
 
 upgradeLabResearch.addEventListener(
     "click",
