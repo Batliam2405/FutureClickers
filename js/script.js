@@ -39,6 +39,8 @@ let labPrice = 2500;
 let isNight = false;
 
 let labResearch = false;
+let labPrice = 2500;
+let labResearchUnlocked = false;
 
 //====================================================
 // ELEMENTS HTML
@@ -64,6 +66,8 @@ const closeResearch = document.getElementById("closeResearch");
 const researchLabButton =
 document.getElementById("researchLab");
 
+const labResearchPrice = 5000;
+
 // Prix
 const fingerPriceText = document.getElementById("fingerPrice");
 const robotPriceText = document.getElementById("robotPrice");
@@ -82,6 +86,12 @@ const factoryContainer = document.getElementById("factoryContainer");
 const labButton = document.getElementById("labUpgrade");
 const labPriceText = document.getElementById("labPrice");
 const labContainer = document.getElementById("labContainer");
+
+const upgradeLabResearch =
+document.getElementById("upgradeLabResearch");
+
+const labResearchState =
+document.getElementById("labResearchState");
 
 // Ville
 const buildings = document.querySelectorAll(".building");
@@ -779,6 +789,8 @@ function saveGame(){
 
         labResearch,
 
+        labResearchUnlocked,
+
         achievements: achievements,
 
         saveDate: Date.now()
@@ -841,6 +853,18 @@ function loadGame(){
 
     labPriceText.textContent =
 labPrice + " 💎";
+
+labResearchUnlocked =
+data.labResearchUnlocked ?? false;
+
+if(labResearchUnlocked){
+
+    labResearchState.textContent =
+    "✅ Développé";
+
+    upgradeLabResearch.disabled = true;
+
+}
 
     //------------------------------------------------
     // Recréation de la ville
@@ -1196,6 +1220,11 @@ function researchLab(){
 researchLabButton.addEventListener(
     "click",
     researchLab
+);
+
+upgradeLabResearch.addEventListener(
+    "click",
+    developLab
 );
 
 createAchievements();
