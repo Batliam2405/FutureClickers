@@ -523,15 +523,17 @@ function buyLab(){
 
     spawnLab();
 
-if(labLevel === 1){
+    if(labLevel === 1){
 
-    alert("🧪 Laboratoire débloqué !");
+        alert("🧪 Laboratoire débloqué !");
 
-}
+    }
 
-updateScore();
+    updateScore();
 
-saveGame();
+    saveGame();
+
+} // <-- IL MANQUAIT CETTE ACCOLADE
 
 labButton.addEventListener("click", buyLab);
 
