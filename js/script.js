@@ -1231,7 +1231,7 @@ function checkAchievements(){
 
 }
 
-function researchLab(){
+function developLab(){
 
     if(labResearch){
 
@@ -1265,18 +1265,10 @@ function researchLab(){
     alert("🧪 Laboratoire amélioré !");
 }
 
-if (upgradeLabResearch) {
-
-    upgradeLabResearch.addEventListener(
-        "click",
-        developLab
-    );
-
-} else {
-
-    console.error("Le bouton #upgradeLabResearch est introuvable.");
-
-}
+upgradeLabResearch.addEventListener(
+    "click",
+    researchLab
+);
 
 createAchievements();
 
