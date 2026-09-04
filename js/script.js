@@ -720,45 +720,26 @@ function spawnLab(){
 
 function rebuildCity(){
 
-    // Vide les anciens éléments
-
     robotsContainer.innerHTML = "";
-
     batteriesContainer.innerHTML = "";
-
     factoryContainer.innerHTML = "";
-
-     labContainer.innerHTML = "";
-
-    // Robots
+    labContainer.innerHTML = "";
 
     for(let i = 0; i < robotCount; i++){
-
         spawnRobot();
-
     }
-
-    // Batteries
 
     for(let i = 0; i < batteryLevel; i++){
-
         spawnBattery();
-
     }
 
-    // Usines
-
     for(let i = 0; i < factoryLevel; i++){
-
         spawnFactory();
-
     }
 
     for(let i = 0; i < labLevel; i++){
-
-    spawnLab();
-
-}
+        spawnLab();
+    }
 
 }
 
