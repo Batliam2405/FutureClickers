@@ -1265,10 +1265,18 @@ function researchLab(){
     alert("🧪 Laboratoire amélioré !");
 }
 
-upgradeLabResearch.addEventListener(
-    "click",
-    developLab
-);
+if (upgradeLabResearch) {
+
+    upgradeLabResearch.addEventListener(
+        "click",
+        developLab
+    );
+
+} else {
+
+    console.error("Le bouton #upgradeLabResearch est introuvable.");
+
+}
 
 createAchievements();
 
