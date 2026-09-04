@@ -55,6 +55,10 @@ const robotButton = document.getElementById("robotUpgrade");
 const batteryButton = document.getElementById("batteryUpgrade");
 const factoryButton = document.getElementById("factoryUpgrade");
 
+const researchMenu = document.getElementById("researchMenu");
+
+const closeResearch = document.getElementById("closeResearch");
+
 // Prix
 const fingerPriceText = document.getElementById("fingerPrice");
 const robotPriceText = document.getElementById("robotPrice");
@@ -519,11 +523,15 @@ function buyLab(){
 
     spawnLab();
 
-    updateScore();
+if(labLevel === 1){
 
-    saveGame();
+    alert("🧪 Laboratoire débloqué !");
 
 }
+
+updateScore();
+
+saveGame();
 
 labButton.addEventListener("click", buyLab);
 
@@ -553,6 +561,36 @@ setInterval(function(){
     saveGame();
 
 },1000);
+
+function openResearch(){
+
+    if(labLevel === 0){
+
+        alert("Construisez un laboratoire d'abord !");
+
+        return;
+
+    }
+
+    researchMenu.style.display = "flex";
+
+}
+
+function closeResearchMenu(){
+
+    researchMenu.style.display = "none";
+
+}
+
+closeResearch.addEventListener(
+
+    "click",
+
+    closeResearchMenu
+
+);
+
+labButton.addEventListener("dblclick", openResearch);
 
 //====================================================
 // GENERATION DES ROBOTS
