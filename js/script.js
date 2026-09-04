@@ -405,29 +405,45 @@ function changeSky(){
 
 setInterval(changeSky,120000);
 
-openRobotTech.onclick = function(){
+if(openRobotTech){
 
-    alert("🤖 Branche Robots");
+    openRobotTech.onclick = function(){
 
-};
+        alert("🤖 Branche Robots");
 
-openBuildingTech.onclick = function(){
+    };
 
-    alert("🏭 Branche Bâtiments");
+}
 
-};
+if(openBuildingTech){
 
-openCityTech.onclick = function(){
+    openBuildingTech.onclick = function(){
 
-    alert("🏙️ Branche Ville");
+        alert("🏭 Branche Bâtiments");
 
-};
+    };
 
-openEnergyTech.onclick = function(){
+}
 
-    alert("⚡ Branche Énergie");
+if(openCityTech){
 
-};
+    openCityTech.onclick = function(){
+
+        alert("🏙️ Branche Ville");
+
+    };
+
+}
+
+if(openEnergyTech){
+
+    openEnergyTech.onclick = function(){
+
+        alert("⚡ Branche Énergie");
+
+    };
+
+}
 
 //====================================================
 // DOIGT AMÉLIORÉ
