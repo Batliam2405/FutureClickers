@@ -564,9 +564,9 @@ setInterval(function(){
 
 function openResearch(){
 
-    if(labLevel === 0){
+    if(labLevel <= 0){
 
-        alert("Construisez un laboratoire d'abord !");
+        alert("Construisez d'abord un laboratoire !");
 
         return;
 
@@ -576,19 +576,13 @@ function openResearch(){
 
 }
 
-function closeResearchMenu(){
+function closeResearchWindow(){
 
     researchMenu.style.display = "none";
 
 }
 
-closeResearch.addEventListener(
-
-    "click",
-
-    closeResearchMenu
-
-);
+closeResearch.addEventListener("click", closeResearchWindow);
 
 labButton.addEventListener("dblclick", openResearch);
 
