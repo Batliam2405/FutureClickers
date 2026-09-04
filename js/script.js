@@ -38,6 +38,8 @@ let labPrice = 2500;
 // Jour / Nuit
 let isNight = false;
 
+let labResearch = false;
+
 //====================================================
 // ELEMENTS HTML
 //====================================================
@@ -58,6 +60,9 @@ const factoryButton = document.getElementById("factoryUpgrade");
 const researchMenu = document.getElementById("researchMenu");
 
 const closeResearch = document.getElementById("closeResearch");
+
+const researchLabButton =
+document.getElementById("researchLab");
 
 // Prix
 const fingerPriceText = document.getElementById("fingerPrice");
@@ -772,6 +777,8 @@ function saveGame(){
         labLevel,
         labPrice,
 
+        labResearch,
+
         achievements: achievements,
 
         saveDate: Date.now()
@@ -829,6 +836,8 @@ function loadGame(){
 
     labLevel = data.labLevel ?? 0;
     labPrice = data.labPrice ?? 2500;
+
+    labResearch = data.labResearch ?? false;
 
     labPriceText.textContent =
 labPrice + " 💎";
@@ -888,6 +897,15 @@ labPrice + " 💎";
         }
 
     }
+
+    if(labResearch){
+
+    researchLabButton.textContent =
+    "✔ Recherche terminée";
+
+    researchLabButton.disabled = true;
+
+}
 
     //------------------------------------------------
     // Succès sauvegardés
@@ -1140,6 +1158,45 @@ function checkAchievements(){
     }
 
 }
+
+function researchLab(){
+
+    if(labResearch){
+
+        alert("Recherche déjà effectuée !");
+
+        return;
+
+    }
+
+    if(score < 5000){
+
+        alert("Pas assez de cristaux !");
+
+        return;
+
+    }
+
+    score -= 5000;
+
+    labResearch = true;
+
+    updateScore();
+
+    saveGame();
+
+    researchLabButton.textContent =
+    "✔ Recherche terminée";
+
+    researchLabButton.disabled = true;
+
+    alert("🧪 Laboratoire amélioré !");
+}
+
+researchLabButton.addEventListener(
+    "click",
+    researchLab
+);
 
 createAchievements();
 
