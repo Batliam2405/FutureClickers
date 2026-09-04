@@ -39,7 +39,6 @@ let labPrice = 2500;
 let isNight = false;
 
 let labResearch = false;
-let labPrice = 2500;
 let labResearchUnlocked = false;
 
 //====================================================
