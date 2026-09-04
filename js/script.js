@@ -1257,17 +1257,17 @@ function developLab(){
 
     saveGame();
 
-    researchLabButton.textContent =
-    "✔ Recherche terminée";
+    upgradeLabResearch.textContent =
+"✔ Recherche terminée";
 
-    researchLabButton.disabled = true;
+upgradeLabResearch.disabled = true;
 
     alert("🧪 Laboratoire amélioré !");
 }
 
 upgradeLabResearch.addEventListener(
     "click",
-    researchLab
+    developLab
 );
 
 createAchievements();
