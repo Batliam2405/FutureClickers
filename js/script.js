@@ -31,6 +31,10 @@ let factoryLevel = 0;
 let factoryPrice = 500;
 let factoryProduction = 20;
 
+// Laboratoire
+let labLevel = 0;
+let labPrice = 2500;
+
 // Jour / Nuit
 let isNight = false;
 
@@ -65,6 +69,10 @@ const batteryLevelText = document.getElementById("batteryLevel");
 const robotsContainer = document.getElementById("robots");
 const batteriesContainer = document.getElementById("batteries");
 const factoryContainer = document.getElementById("factoryContainer");
+
+const labButton = document.getElementById("labUpgrade");
+const labPriceText = document.getElementById("labPrice");
+const labContainer = document.getElementById("labContainer");
 
 // Ville
 const buildings = document.querySelectorAll(".building");
@@ -492,6 +500,33 @@ function buyFactory(){
 
 factoryButton.addEventListener("click", buyFactory);
 
+function buyLab(){
+
+    if(score < labPrice){
+
+        return;
+
+    }
+
+    score -= labPrice;
+
+    labLevel++;
+
+    labPrice = Math.floor(labPrice * 2);
+
+    labPriceText.textContent =
+    labPrice + " 💎";
+
+    spawnLab();
+
+    updateScore();
+
+    saveGame();
+
+}
+
+labButton.addEventListener("click", buyLab);
+
 
 //====================================================
 // PRODUCTION AUTOMATIQUE
@@ -614,6 +649,37 @@ function spawnFactory(){
 
 }
 
+function spawnLab(){
+
+    const lab = document.createElement("div");
+
+    lab.className = "lab";
+
+    lab.style.left =
+    (80 + Math.random()*1100) + "px";
+
+    lab.style.bottom = "260px";
+
+    lab.innerHTML = `
+
+        <div class="labRoof"></div>
+
+        <div class="labCrystal"></div>
+
+        <div class="labBody">
+
+            <div class="labWindow"></div>
+
+            <div class="labDoor"></div>
+
+        </div>
+
+    `;
+
+    labContainer.appendChild(lab);
+
+}
+
 //====================================================
 // RECONSTRUCTION DE LA VILLE
 //====================================================
@@ -627,6 +693,8 @@ function rebuildCity(){
     batteriesContainer.innerHTML = "";
 
     factoryContainer.innerHTML = "";
+
+     labContainer.innerHTML = "";
 
     // Robots
 
@@ -651,6 +719,12 @@ function rebuildCity(){
         spawnFactory();
 
     }
+
+    for(let i = 0; i < labLevel; i++){
+
+    spawnLab();
+
+}
 
 }
 
@@ -679,6 +753,9 @@ function saveGame(){
         factoryLevel: factoryLevel,
         factoryPrice: factoryPrice,
         factoryProduction: factoryProduction,
+
+        labLevel,
+        labPrice,
 
         achievements: achievements,
 
@@ -734,6 +811,12 @@ function loadGame(){
     factoryLevel = data.factoryLevel ?? 0;
     factoryPrice = data.factoryPrice ?? 500;
     factoryProduction = data.factoryProduction ?? 20;
+
+    labLevel = data.labLevel ?? 0;
+    labPrice = data.labPrice ?? 2500;
+
+    labPriceText.textContent =
+labPrice + " 💎";
 
     //------------------------------------------------
     // Recréation de la ville
