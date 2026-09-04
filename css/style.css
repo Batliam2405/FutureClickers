@@ -1871,3 +1871,48 @@ button:hover{
     margin-top:25px;
 
 }
+
+#technologyTree{
+
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:25px;
+    margin-top:30px;
+
+}
+
+.techBranch{
+
+    background:#1b2740;
+    border:2px solid #00d5ff;
+    border-radius:15px;
+    padding:20px;
+    text-align:center;
+    transition:.3s;
+
+}
+
+.techBranch:hover{
+
+    transform:scale(1.04);
+    box-shadow:0 0 20px cyan;
+
+}
+
+.techBranch h2{
+
+    color:#00ffff;
+
+}
+
+.techBranch button{
+
+    margin-top:15px;
+    width:140px;
+    height:45px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:18px;
+
+}

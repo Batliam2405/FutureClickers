@@ -102,6 +102,18 @@ const sun = document.getElementById("sun");
 const moon = document.getElementById("moon");
 const stars = document.getElementById("stars");
 
+const openRobotTech =
+document.getElementById("openRobotTech");
+
+const openBuildingTech =
+document.getElementById("openBuildingTech");
+
+const openCityTech =
+document.getElementById("openCityTech");
+
+const openEnergyTech =
+document.getElementById("openEnergyTech");
+
 // Voitures
 const flyingCars = document.getElementById("flyingCars");
 
@@ -393,6 +405,30 @@ function changeSky(){
 // Change toutes les 2 minutes
 
 setInterval(changeSky,120000);
+
+openRobotTech.onclick = function(){
+
+    alert("🤖 Branche Robots");
+
+};
+
+openBuildingTech.onclick = function(){
+
+    alert("🏭 Branche Bâtiments");
+
+};
+
+openCityTech.onclick = function(){
+
+    alert("🏙️ Branche Ville");
+
+};
+
+openEnergyTech.onclick = function(){
+
+    alert("⚡ Branche Énergie");
+
+};
 
 //====================================================
 // DOIGT AMÉLIORÉ
