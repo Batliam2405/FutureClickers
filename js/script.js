@@ -1347,23 +1347,43 @@ function upgradeLabResearch(){
 
 }
 
+function openRobotTree(){
+
+    document.getElementById("robotTreeMenu").style.display = "flex";
+
+}
+
 //====================================================
 // RECHERCHE ROBOTS
 //====================================================
+
+robotTechButton.addEventListener(
+    "click",
+    openRobotTree
+);
 
 function unlockRobotBranch(){
 
     if(!robotTechUnlocked){
 
-        alert("Débloquez d'abord la branche Robots.");
+        if(score < 10000){
 
-        return;
+            alert("10000 💎 nécessaires.");
+            return;
+
+        }
+
+        score -= 10000;
+
+        robotTechUnlocked = true;
+
+        saveGame();
+
+        updateScore();
 
     }
 
-    document.getElementById(
-        "robotTreeMenu"
-    ).style.display = "flex";
+    document.getElementById("robotTreeMenu").style.display = "flex";
 
 }
 
