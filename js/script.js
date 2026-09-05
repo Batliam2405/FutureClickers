@@ -442,7 +442,17 @@ factoryButton.addEventListener(
 
 function buyLab(){
 
+    if(labLevel >= 1){
+
+        alert("🧪 Vous possédez déjà un laboratoire !");
+
+        return;
+
+    }
+
     if(score < labPrice){
+
+        alert("Pas assez de cristaux !");
 
         return;
 
@@ -450,23 +460,20 @@ function buyLab(){
 
     score -= labPrice;
 
-    labLevel++;
-
-    labPrice = Math.floor(
-        labPrice * 2
-    );
+    labLevel = 1;
 
     spawnLab();
 
     updateScore();
 
-    if(labLevel === 1){
+    saveGame();
 
-        alert(
-            "🧪 Laboratoire construit !"
-        );
+    alert("🧪 Laboratoire construit !");
 
-    }
+    // Désactive le bouton
+    labButton.disabled = true;
+
+    labButton.textContent = "✔ Laboratoire construit";
 
 }
 
@@ -1436,50 +1443,6 @@ labButton.addEventListener(
     openResearchMenu
 
 );
-
-//====================================================
-// SAUVEGARDE DES RECHERCHES
-//====================================================
-
-const oldSaveGame = saveGame;
-
-saveGame = function(){
-
-    oldSaveGame();
-
-    const save =
-
-    JSON.parse(
-
-        localStorage.getItem(
-
-            "FutureClickerSave"
-
-        )
-
-    );
-
-    save.robotTechUnlocked =
-    robotTechUnlocked;
-
-    save.buildingTechUnlocked =
-    buildingTechUnlocked;
-
-    save.cityTechUnlocked =
-    cityTechUnlocked;
-
-    save.energyTechUnlocked =
-    energyTechUnlocked;
-
-    localStorage.setItem(
-
-        "FutureClickerSave",
-
-        JSON.stringify(save)
-
-    );
-
-};
 
 console.log(
     "🌳 Arbre technologique chargé."
