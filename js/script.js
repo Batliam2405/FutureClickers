@@ -1,6 +1,7 @@
 //====================================================
 // FUTURE CLICKER
 // Script principal
+// Partie 1
 //====================================================
 
 //====================================================
@@ -35,86 +36,103 @@ let factoryProduction = 20;
 let labLevel = 0;
 let labPrice = 2500;
 
-// Jour / Nuit
-let isNight = false;
-
 let labResearch = false;
 let labResearchUnlocked = false;
+
+// Jour / Nuit
+let isNight = false;
 
 //====================================================
 // ELEMENTS HTML
 //====================================================
 
-// Affichage
-const scoreText = document.getElementById("score");
+// Affichage principal
+const scoreText =
+document.getElementById("score");
 
 // Réacteur
-const core = document.getElementById("reactor");
-const clickButton = document.getElementById("clickButton");
+const reactor =
+document.getElementById("reactor");
+
+const clickButton =
+document.getElementById("clickButton");
 
 // Boutique
-const fingerButton = document.getElementById("fingerUpgrade");
-const robotButton = document.getElementById("robotUpgrade");
-const batteryButton = document.getElementById("batteryUpgrade");
-const factoryButton = document.getElementById("factoryUpgrade");
+const fingerButton =
+document.getElementById("fingerUpgrade");
 
-const researchMenu = document.getElementById("researchMenu");
+const robotButton =
+document.getElementById("robotUpgrade");
 
-const closeResearch = document.getElementById("closeResearch");
+const batteryButton =
+document.getElementById("batteryUpgrade");
 
-const labResearchPrice = 5000;
+const factoryButton =
+document.getElementById("factoryUpgrade");
+
+const labButton =
+document.getElementById("labUpgrade");
 
 // Prix
-const fingerPriceText = document.getElementById("fingerPrice");
-const robotPriceText = document.getElementById("robotPrice");
-const batteryPriceText = document.getElementById("batteryPrice");
-const factoryPriceText = document.getElementById("factoryPrice");
+const fingerPriceText =
+document.getElementById("fingerPrice");
+
+const robotPriceText =
+document.getElementById("robotPrice");
+
+const batteryPriceText =
+document.getElementById("batteryPrice");
+
+const factoryPriceText =
+document.getElementById("factoryPrice");
+
+const labPriceText =
+document.getElementById("labPrice");
 
 // Informations
-const robotCountText = document.getElementById("robotCount");
-const batteryLevelText = document.getElementById("batteryLevel");
+const robotCountText =
+document.getElementById("robotCount");
 
-// Conteneurs
-const robotsContainer = document.getElementById("robots");
-const batteriesContainer = document.getElementById("batteries");
-const factoryContainer = document.getElementById("factoryContainer");
-
-const labButton = document.getElementById("labUpgrade");
-const labPriceText = document.getElementById("labPrice");
-const labContainer = document.getElementById("labContainer");
-
-const upgradeLabResearch =
-document.getElementById("upgradeLabResearch");
-
-const labResearchState =
-document.getElementById("labResearchState");
+const batteryLevelText =
+document.getElementById("batteryLevel");
 
 // Ville
-const buildings = document.querySelectorAll(".building");
+const robotsContainer =
+document.getElementById("robots");
+
+const batteriesContainer =
+document.getElementById("batteries");
+
+const factoryContainer =
+document.getElementById("factoryContainer");
+
+const labContainer =
+document.getElementById("labContainer");
+
+// Bâtiments décoratifs
+const buildings =
+document.querySelectorAll(".building");
 
 // Ciel
-const sky = document.getElementById("sky");
-const sun = document.getElementById("sun");
-const moon = document.getElementById("moon");
-const stars = document.getElementById("stars");
+const sky =
+document.getElementById("sky");
 
-const openRobotTech =
-document.getElementById("openRobotTech");
+const sun =
+document.getElementById("sun");
 
-const openBuildingTech =
-document.getElementById("openBuildingTech");
+const moon =
+document.getElementById("moon");
 
-const openCityTech =
-document.getElementById("openCityTech");
-
-const openEnergyTech =
-document.getElementById("openEnergyTech");
+const stars =
+document.getElementById("stars");
 
 // Voitures
-const flyingCars = document.getElementById("flyingCars");
+const flyingCars =
+document.getElementById("flyingCars");
 
 // Succès
-const achievementList = document.getElementById("achievementList");
+const achievementList =
+document.getElementById("achievementList");
 
 //====================================================
 // MISE A JOUR DE L'INTERFACE
@@ -123,45 +141,67 @@ const achievementList = document.getElementById("achievementList");
 function updateScore(){
 
     const production =
+
         robotCount * robotProduction +
+
         factoryLevel * factoryProduction;
 
     scoreText.innerHTML =
 
-        "Cristaux : " + score + " 💎" +
+        "Cristaux : " +
+
+        score +
+
+        " 💎" +
 
         "<br><br>" +
 
-        "👆 Clic : +" + clickPower +
+        "👆 Clic : +" +
+
+        clickPower +
 
         "<br>" +
 
-        "🤖 Production : " + production + " / seconde";
+        "⚙ Production : " +
+
+        production +
+
+        " / seconde";
 
     fingerPriceText.textContent =
-        fingerPrice + " 💎";
+    fingerPrice + " 💎";
 
     robotPriceText.textContent =
-        robotPrice + " 💎";
+    robotPrice + " 💎";
 
     batteryPriceText.textContent =
-        batteryPrice + " 💎";
+    batteryPrice + " 💎";
 
     factoryPriceText.textContent =
-        factoryPrice + " 💎";
+    factoryPrice + " 💎";
 
-    robotCountText.textContent =
+    if(labPriceText){
+
+        labPriceText.textContent =
+        labPrice + " 💎";
+
+    }
+
+    if(robotCountText){
+
+        robotCountText.textContent =
         "Robots : " + robotCount;
 
-    batteryLevelText.textContent =
+    }
+
+    if(batteryLevelText){
+
+        batteryLevelText.textContent =
         "Niveau : " + batteryLevel;
 
-        checkAchievements();
+    }
 
 }
-
-// Premier affichage
-updateScore();
 
 //====================================================
 // CLIC SUR LE REACTEUR
@@ -169,49 +209,33 @@ updateScore();
 
 function clickReactor(){
 
-    // Ajoute les cristaux
-
     score += clickPower;
-
-    // Met à jour l'affichage
 
     updateScore();
 
-    // Sauvegarde
+    reactor.classList.remove("clicked");
 
-    saveGame();
+    void reactor.offsetWidth;
 
-    // Succès
-
-    unlock("firstClick");
-
-    //=================================
-    // Animation du réacteur
-    //=================================
-
-    core.classList.remove("clicked");
-
-    void core.offsetWidth;
-
-    core.classList.add("clicked");
+    reactor.classList.add("clicked");
 
     setTimeout(function(){
 
-        core.classList.remove("clicked");
+        reactor.classList.remove("clicked");
 
     },180);
 
-    //=================================
-    // Texte +Cristaux
-    //=================================
+    const txt =
+    document.createElement("div");
 
-    const txt = document.createElement("div");
+    txt.className =
+    "floatingText";
 
-    txt.className = "floatingText";
+    txt.innerHTML =
+    "+" + clickPower + " 💎";
 
-    txt.innerHTML = "+" + clickPower + " 💎";
-
-    const rect = core.getBoundingClientRect();
+    const rect =
+    reactor.getBoundingClientRect();
 
     txt.style.left =
     (rect.left + rect.width / 2) + "px";
@@ -227,25 +251,27 @@ function clickReactor(){
 
     },1000);
 
-    //=================================
-    // Illumine un bâtiment
-    //=================================
-
     if(buildings.length > 0){
 
-        const randomBuilding =
+        const building =
 
         buildings[
+
             Math.floor(
-                Math.random() * buildings.length
+
+                Math.random() *
+
+                buildings.length
+
             )
+
         ];
 
-        randomBuilding.classList.add("powered");
+        building.classList.add("powered");
 
         setTimeout(function(){
 
-            randomBuilding.classList.remove("powered");
+            building.classList.remove("powered");
 
         },2500);
 
@@ -257,190 +283,30 @@ function clickReactor(){
 // EVENEMENTS
 //====================================================
 
-core.addEventListener("click", clickReactor);
+reactor.addEventListener(
+    "click",
+    clickReactor
+);
 
-clickButton.addEventListener("click", clickReactor);
-
-//====================================================
-// VOITURES VOLANTES
-//====================================================
-
-const carColors = [
-
-    "#00e5ff",
-    "#ff006e",
-    "#00ff88",
-    "#ffae00",
-    "#8a5cff"
-
-];
-
-function spawnCar(){
-
-    const car = document.createElement("div");
-
-    car.className = "car";
-
-    const body = document.createElement("div");
-
-    body.className = "carBody";
-
-    body.style.background =
-
-    carColors[
-        Math.floor(
-            Math.random() * carColors.length
-        )
-    ];
-
-    car.appendChild(body);
-
-    // Position verticale
-
-    car.style.top =
-
-    (80 + Math.random() * 320) + "px";
-
-    // Vitesse
-
-    const duration =
-
-    8 + Math.random() * 6;
-
-    car.style.animationDuration =
-
-    duration + "s";
-
-    flyingCars.appendChild(car);
-
-    setTimeout(function(){
-
-        car.remove();
-
-    }, duration * 1000);
-
-}
-
-function randomCar(){
-
-    spawnCar();
-
-    const next =
-
-    5000 +
-
-    Math.random() * 10000;
-
-    setTimeout(randomCar, next);
-
-}
-
-// Lance les voitures
-
-randomCar();
-
+clickButton.addEventListener(
+    "click",
+    clickReactor
+);
 
 //====================================================
-// JOUR / NUIT
+// PREMIER DEMARRAGE
 //====================================================
 
-function changeSky(){
+updateScore();
 
-    if(isNight){
+console.log(
+    "✅ Future Clicker - Partie 1 chargée."
+);
 
-        //--------------------
-        // JOUR
-        //--------------------
-
-        sky.style.background =
-
-        "linear-gradient(#5ec9ff,#b8e8ff,#d7f3ff)";
-
-        sun.style.opacity = 1;
-
-        moon.style.opacity = 0;
-
-        stars.style.opacity = 0;
-
-        buildings.forEach(function(building){
-
-            building.classList.remove("powered");
-
-        });
-
-    }
-
-    else{
-
-        //--------------------
-        // NUIT
-        //--------------------
-
-        sky.style.background =
-
-        "linear-gradient(#050816,#091229,#13203d)";
-
-        sun.style.opacity = 0;
-
-        moon.style.opacity = 1;
-
-        stars.style.opacity = 0.9;
-
-        buildings.forEach(function(building){
-
-            building.classList.add("powered");
-
-        });
-
-    }
-
-    isNight = !isNight;
-
-}
-
-// Change toutes les 2 minutes
-
-setInterval(changeSky,120000);
-
-if(openRobotTech){
-
-    openRobotTech.onclick = function(){
-
-        alert("🤖 Branche Robots");
-
-    };
-
-}
-
-if(openBuildingTech){
-
-    openBuildingTech.onclick = function(){
-
-        alert("🏭 Branche Bâtiments");
-
-    };
-
-}
-
-if(openCityTech){
-
-    openCityTech.onclick = function(){
-
-        alert("🏙️ Branche Ville");
-
-    };
-
-}
-
-if(openEnergyTech){
-
-    openEnergyTech.onclick = function(){
-
-        alert("⚡ Branche Énergie");
-
-    };
-
-}
+//====================================================
+// PARTIE 2
+// BOUTIQUE ET ACHATS
+//====================================================
 
 //====================================================
 // DOIGT AMÉLIORÉ
@@ -464,17 +330,15 @@ function buyFinger(){
 
     updateScore();
 
-    unlock("firstFinger");
-
-    saveGame();
-
 }
 
-fingerButton.addEventListener("click", buyFinger);
-
+fingerButton.addEventListener(
+    "click",
+    buyFinger
+);
 
 //====================================================
-// ROBOT
+// ROBOTS
 //====================================================
 
 function buyRobot(){
@@ -495,17 +359,15 @@ function buyRobot(){
 
     updateScore();
 
-    unlock("firstRobot");
-
-    saveGame();
-
 }
 
-robotButton.addEventListener("click", buyRobot);
-
+robotButton.addEventListener(
+    "click",
+    buyRobot
+);
 
 //====================================================
-// BATTERIE
+// BATTERIES
 //====================================================
 
 function buyBattery(){
@@ -522,23 +384,23 @@ function buyBattery(){
 
     robotProduction++;
 
-    batteryPrice = Math.floor(batteryPrice * 2);
+    batteryPrice = Math.floor(
+        batteryPrice * 2
+    );
 
     spawnBattery();
 
     updateScore();
 
-    unlock("firstBattery");
-
-    saveGame();
-
 }
 
-batteryButton.addEventListener("click", buyBattery);
-
+batteryButton.addEventListener(
+    "click",
+    buyBattery
+);
 
 //====================================================
-// USINE
+// USINES
 //====================================================
 
 function buyFactory(){
@@ -553,19 +415,24 @@ function buyFactory(){
 
     factoryLevel++;
 
-    factoryPrice = Math.floor(factoryPrice * 1.8);
+    factoryPrice = Math.floor(
+        factoryPrice * 1.8
+    );
 
     spawnFactory();
 
     updateScore();
 
-    unlock("firstFactory");
-
-    saveGame();
-
 }
 
-factoryButton.addEventListener("click", buyFactory);
+factoryButton.addEventListener(
+    "click",
+    buyFactory
+);
+
+//====================================================
+// LABORATOIRE
+//====================================================
 
 function buyLab(){
 
@@ -579,27 +446,28 @@ function buyLab(){
 
     labLevel++;
 
-    labPrice = Math.floor(labPrice * 2);
-
-    labPriceText.textContent =
-    labPrice + " 💎";
+    labPrice = Math.floor(
+        labPrice * 2
+    );
 
     spawnLab();
 
+    updateScore();
+
     if(labLevel === 1){
 
-        alert("🧪 Laboratoire débloqué !");
+        alert(
+            "🧪 Laboratoire construit !"
+        );
 
     }
 
-    updateScore();
+}
 
-    saveGame();
-
-} // <-- IL MANQUAIT CETTE ACCOLADE
-
-labButton.addEventListener("click", buyLab);
-
+labButton.addEventListener(
+    "click",
+    buyLab
+);
 
 //====================================================
 // PRODUCTION AUTOMATIQUE
@@ -623,39 +491,115 @@ setInterval(function(){
 
     updateScore();
 
-    saveGame();
-
 },1000);
+
+//====================================================
+// OUVERTURE DU LABORATOIRE
+//====================================================
 
 function openResearch(){
 
     if(labLevel <= 0){
 
-        alert("Construisez d'abord un laboratoire !");
+        alert(
+            "Construisez un laboratoire d'abord."
+        );
 
         return;
 
     }
 
-    researchMenu.style.display = "flex";
+    const menu =
+
+    document.getElementById(
+        "researchMenu"
+    );
+
+    if(menu){
+
+        menu.style.display = "flex";
+
+    }
 
 }
 
-function closeResearchWindow(){
+function closeResearch(){
 
-    researchMenu.style.display = "none";
+    const menu =
+
+    document.getElementById(
+        "researchMenu"
+    );
+
+    if(menu){
+
+        menu.style.display = "none";
+
+    }
 
 }
 
-closeResearch.addEventListener("click", closeResearchWindow);
+const closeResearchButton =
 
-labButton.addEventListener("dblclick", openResearch);
+document.getElementById(
+    "closeResearch"
+);
+
+if(closeResearchButton){
+
+    closeResearchButton.addEventListener(
+        "click",
+        closeResearch
+    );
+
+}
+
+// Double clic sur le laboratoire
+labButton.addEventListener(
+    "dblclick",
+    openResearch
+);
 
 //====================================================
-// GENERATION DES ROBOTS
+// PRODUCTION TOTALE
+//====================================================
+
+function getProduction(){
+
+    return (
+
+        robotCount *
+
+        robotProduction +
+
+        factoryLevel *
+
+        factoryProduction
+
+    );
+
+}
+
+console.log(
+    "✅ Partie 2 chargée."
+);
+
+//====================================================
+// PARTIE 3
+// GENERATION DE LA VILLE
+//====================================================
+
+//====================================================
+// ROBOTS
 //====================================================
 
 function spawnRobot(){
+
+    if(!robotsContainer){
+
+        return;
+
+    }
 
     const robot = document.createElement("div");
 
@@ -675,17 +619,23 @@ function spawnRobot(){
     (100 + Math.random() * 1100) + "px";
 
     robot.style.top =
-    (20 + Math.random() * 60) + "px";
+    (20 + Math.random() * 80) + "px";
 
     robotsContainer.appendChild(robot);
 
 }
 
 //====================================================
-// GENERATION DES BATTERIES
+// BATTERIES
 //====================================================
 
 function spawnBattery(){
+
+    if(!batteriesContainer){
+
+        return;
+
+    }
 
     const battery = document.createElement("div");
 
@@ -703,22 +653,31 @@ function spawnBattery(){
 
     `;
 
+    battery.style.left =
+    (100 + Math.random() * 1100) + "px";
+
     batteriesContainer.appendChild(battery);
 
 }
 
 //====================================================
-// GENERATION DES USINES
+// USINES
 //====================================================
 
 function spawnFactory(){
+
+    if(!factoryContainer){
+
+        return;
+
+    }
 
     const factory = document.createElement("div");
 
     factory.className = "factory";
 
     factory.style.left =
-    (50 + Math.random() * 1200) + "px";
+    (40 + Math.random() * 1150) + "px";
 
     factory.style.bottom = "260px";
 
@@ -746,14 +705,24 @@ function spawnFactory(){
 
 }
 
+//====================================================
+// LABORATOIRE
+//====================================================
+
 function spawnLab(){
+
+    if(!labContainer){
+
+        return;
+
+    }
 
     const lab = document.createElement("div");
 
     lab.className = "lab";
 
     lab.style.left =
-    (80 + Math.random()*1100) + "px";
+    (80 + Math.random() * 1100) + "px";
 
     lab.style.bottom = "260px";
 
@@ -778,33 +747,117 @@ function spawnLab(){
 }
 
 //====================================================
-// RECONSTRUCTION DE LA VILLE
+// RECONSTRUCTION COMPLETE
 //====================================================
 
 function rebuildCity(){
 
-    robotsContainer.innerHTML = "";
-    batteriesContainer.innerHTML = "";
-    factoryContainer.innerHTML = "";
-    labContainer.innerHTML = "";
+    if(robotsContainer){
+
+        robotsContainer.innerHTML = "";
+
+    }
+
+    if(batteriesContainer){
+
+        batteriesContainer.innerHTML = "";
+
+    }
+
+    if(factoryContainer){
+
+        factoryContainer.innerHTML = "";
+
+    }
+
+    if(labContainer){
+
+        labContainer.innerHTML = "";
+
+    }
+
+    //------------------------------------------------
+    // Robots
+    //------------------------------------------------
 
     for(let i = 0; i < robotCount; i++){
+
         spawnRobot();
+
     }
+
+    //------------------------------------------------
+    // Batteries
+    //------------------------------------------------
 
     for(let i = 0; i < batteryLevel; i++){
+
         spawnBattery();
+
     }
+
+    //------------------------------------------------
+    // Usines
+    //------------------------------------------------
 
     for(let i = 0; i < factoryLevel; i++){
+
         spawnFactory();
+
     }
 
+    //------------------------------------------------
+    // Laboratoires
+    //------------------------------------------------
+
     for(let i = 0; i < labLevel; i++){
+
         spawnLab();
+
     }
 
 }
+
+//====================================================
+// RAFRAICHISSEMENT DE LA VILLE
+//====================================================
+
+function refreshCity(){
+
+    rebuildCity();
+
+    updateScore();
+
+}
+
+//====================================================
+// REINITIALISATION
+//====================================================
+
+function clearCity(){
+
+    robotCount = 0;
+
+    batteryLevel = 0;
+
+    factoryLevel = 0;
+
+    labLevel = 0;
+
+    rebuildCity();
+
+    updateScore();
+
+}
+
+console.log(
+    "✅ Partie 3 chargée."
+);
+
+//====================================================
+// PARTIE 4
+// SAUVEGARDE ET CHARGEMENT
+//====================================================
 
 //====================================================
 // SAUVEGARDE
@@ -812,33 +865,59 @@ function rebuildCity(){
 
 function saveGame(){
 
-    const data = {
+    const save = {
+
+        //------------------------------------------------
+        // Ressources
+        //------------------------------------------------
 
         score: score,
 
         clickPower: clickPower,
 
+        //------------------------------------------------
+        // Doigt
+        //------------------------------------------------
+
         fingerLevel: fingerLevel,
         fingerPrice: fingerPrice,
+
+        //------------------------------------------------
+        // Robots
+        //------------------------------------------------
 
         robotCount: robotCount,
         robotPrice: robotPrice,
         robotProduction: robotProduction,
 
+        //------------------------------------------------
+        // Batteries
+        //------------------------------------------------
+
         batteryLevel: batteryLevel,
         batteryPrice: batteryPrice,
+
+        //------------------------------------------------
+        // Usines
+        //------------------------------------------------
 
         factoryLevel: factoryLevel,
         factoryPrice: factoryPrice,
         factoryProduction: factoryProduction,
 
-        labLevel,
-        labPrice,
+        //------------------------------------------------
+        // Laboratoire
+        //------------------------------------------------
 
-        labResearch,
-        labResearchUnlocked,
+        labLevel: labLevel,
+        labPrice: labPrice,
 
-        achievements: achievements,
+        labResearch: labResearch,
+        labResearchUnlocked: labResearchUnlocked,
+
+        //------------------------------------------------
+        // Date
+        //------------------------------------------------
 
         saveDate: Date.now()
 
@@ -848,16 +927,11 @@ function saveGame(){
 
         "FutureClickerSave",
 
-        JSON.stringify(data)
+        JSON.stringify(save)
 
     );
 
 }
-
-// Sauvegarde automatique
-
-setInterval(saveGame,5000);
-
 
 //====================================================
 // CHARGEMENT
@@ -865,9 +939,23 @@ setInterval(saveGame,5000);
 
 function loadGame(){
 
-    const save = localStorage.getItem("FutureClickerSave");
+    const save =
 
-    if(!save){
+    localStorage.getItem(
+
+        "FutureClickerSave"
+
+    );
+
+    if(save === null){
+
+        console.log(
+
+            "Nouvelle partie."
+
+        );
+
+        updateScore();
 
         return;
 
@@ -875,79 +963,104 @@ function loadGame(){
 
     const data = JSON.parse(save);
 
+    //------------------------------------------------
+    // Ressources
+    //------------------------------------------------
+
     score = data.score ?? 0;
 
     clickPower = data.clickPower ?? 1;
 
+    //------------------------------------------------
+    // Doigt
+    //------------------------------------------------
+
     fingerLevel = data.fingerLevel ?? 0;
     fingerPrice = data.fingerPrice ?? 10;
+
+    //------------------------------------------------
+    // Robots
+    //------------------------------------------------
 
     robotCount = data.robotCount ?? 0;
     robotPrice = data.robotPrice ?? 50;
     robotProduction = data.robotProduction ?? 1;
 
+    //------------------------------------------------
+    // Batteries
+    //------------------------------------------------
+
     batteryLevel = data.batteryLevel ?? 0;
     batteryPrice = data.batteryPrice ?? 150;
 
+    //------------------------------------------------
+    // Usines
+    //------------------------------------------------
+
     factoryLevel = data.factoryLevel ?? 0;
     factoryPrice = data.factoryPrice ?? 500;
-    factoryProduction = data.factoryProduction ?? 20;
+    factoryProduction =
+    data.factoryProduction ?? 20;
+
+    //------------------------------------------------
+    // Laboratoire
+    //------------------------------------------------
 
     labLevel = data.labLevel ?? 0;
     labPrice = data.labPrice ?? 2500;
 
-    labResearch = data.labResearch ?? false;
-
-    labPriceText.textContent =
-    labPrice + " 💎";
+    labResearch =
+    data.labResearch ?? false;
 
     labResearchUnlocked =
     data.labResearchUnlocked ?? false;
 
-    if(labResearchUnlocked){
-
-        labResearchState.textContent =
-        "✅ Développé";
-
-        upgradeLabResearch.disabled = true;
-
-    }
-
-    if(labResearch){
-
-    upgradeLabResearch.textContent =
-    "✔ Recherche terminée";
-
-    upgradeLabResearch.disabled = true;
-
-    }
-
-    // Reconstruit la ville
-    rebuildCity();
-
-    // Recharge les succès
-    refreshAchievements();
-
-    // Met à jour l'interface
-    updateScore();// Reconstruit la ville
-    rebuildCity();
-
-}
-
     //------------------------------------------------
-    // Recréation de la ville
+    // Reconstruction
     //------------------------------------------------
 
     rebuildCity();
-
-    //------------------------------------------------
-    // Rafraîchit l'interface
-    //------------------------------------------------
 
     updateScore();
 
     //------------------------------------------------
-    // Temps hors ligne
+    // Recharge le laboratoire
+    //------------------------------------------------
+
+    if(labResearchUnlocked){
+
+        const button =
+
+        document.getElementById(
+            "upgradeLabResearch"
+        );
+
+        const state =
+
+        document.getElementById(
+            "labResearchState"
+        );
+
+        if(button){
+
+            button.disabled = true;
+
+            button.textContent =
+            "✔ Recherche terminée";
+
+        }
+
+        if(state){
+
+            state.textContent =
+            "✅ Développé";
+
+        }
+
+    }
+
+    //------------------------------------------------
+    // Production hors ligne
     //------------------------------------------------
 
     if(data.saveDate){
@@ -956,7 +1069,11 @@ function loadGame(){
 
         Math.floor(
 
-            (Date.now() - data.saveDate)
+            (Date.now()
+
+            -
+
+            data.saveDate)
 
             /1000
 
@@ -964,23 +1081,35 @@ function loadGame(){
 
         const production =
 
-            robotCount * robotProduction +
+            robotCount *
 
-            factoryLevel * factoryProduction;
+            robotProduction
 
-        const offlineGain =
+            +
 
-            production * secondsAway;
+            factoryLevel *
 
-        if(offlineGain > 0){
+            factoryProduction;
 
-            score += offlineGain;
+        const gain =
+
+        production *
+
+        secondsAway;
+
+        if(gain > 0){
+
+            score += gain;
 
             alert(
 
                 "💎 Pendant votre absence vous avez gagné "
 
-                + offlineGain +
+                +
+
+                gain
+
+                +
 
                 " cristaux !"
 
@@ -990,49 +1119,389 @@ function loadGame(){
 
     }
 
-    if(labResearch){
-
-    researchLabButton.textContent =
-    "✔ Recherche terminée";
-
-    researchLabButton.disabled = true;
-
-}
-
-    //------------------------------------------------
-    // Succès sauvegardés
-    //------------------------------------------------
-
-    if(data.achievements){
-
-        achievements.forEach(function(a){
-
-            const saved =
-
-            data.achievements.find(
-
-                s => s.id === a.id
-
-            );
-
-            if(saved){
-
-                a.unlocked = saved.unlocked;
-
-            }
-
-        });
-
-    }
-
-    refreshAchievements();
-
     updateScore();
 
 }
 
 //====================================================
-// SUCCES
+// SAUVEGARDE AUTOMATIQUE
+//====================================================
+
+setInterval(function(){
+
+    saveGame();
+
+},5000);
+
+//====================================================
+// SAUVEGARDE AVANT FERMETURE
+//====================================================
+
+window.addEventListener(
+
+    "beforeunload",
+
+    saveGame
+
+);
+
+//====================================================
+// INITIALISATION
+//====================================================
+
+loadGame();
+
+console.log(
+
+    "💾 Sauvegarde chargée."
+
+);
+
+//====================================================
+// PARTIE 5
+// LABORATOIRE ET ARBRE TECHNOLOGIQUE
+//====================================================
+
+//====================================================
+// VARIABLES DES RECHERCHES
+//====================================================
+
+let robotTechUnlocked = false;
+let buildingTechUnlocked = false;
+let cityTechUnlocked = false;
+let energyTechUnlocked = false;
+
+//====================================================
+// ELEMENTS HTML
+//====================================================
+
+const researchMenu =
+document.getElementById("researchMenu");
+
+const closeResearchButton =
+document.getElementById("closeResearch");
+
+const robotTechButton =
+document.getElementById("openRobotTech");
+
+const buildingTechButton =
+document.getElementById("openBuildingTech");
+
+const cityTechButton =
+document.getElementById("openCityTech");
+
+const energyTechButton =
+document.getElementById("openEnergyTech");
+
+//====================================================
+// OUVERTURE DU LABORATOIRE
+//====================================================
+
+function openResearchMenu(){
+
+    if(labLevel <= 0){
+
+        alert(
+            "Construisez un laboratoire."
+        );
+
+        return;
+
+    }
+
+    researchMenu.style.display = "flex";
+
+}
+
+function closeResearchMenu(){
+
+    researchMenu.style.display = "none";
+
+}
+
+if(closeResearchButton){
+
+    closeResearchButton.addEventListener(
+
+        "click",
+
+        closeResearchMenu
+
+    );
+
+}
+
+//====================================================
+// RECHERCHE ROBOTS
+//====================================================
+
+function unlockRobotBranch(){
+
+    if(robotTechUnlocked){
+
+        alert("Déjà débloqué.");
+
+        return;
+
+    }
+
+    if(score < 10000){
+
+        alert("10000 💎 nécessaires.");
+
+        return;
+
+    }
+
+    score -= 10000;
+
+    robotTechUnlocked = true;
+
+    updateScore();
+
+    saveGame();
+
+    alert(
+
+        "🤖 Branche Robots débloquée !"
+
+    );
+
+}
+
+//====================================================
+// RECHERCHE BATIMENTS
+//====================================================
+
+function unlockBuildingBranch(){
+
+    if(buildingTechUnlocked){
+
+        alert("Déjà débloqué.");
+
+        return;
+
+    }
+
+    if(score < 15000){
+
+        alert("15000 💎 nécessaires.");
+
+        return;
+
+    }
+
+    score -= 15000;
+
+    buildingTechUnlocked = true;
+
+    updateScore();
+
+    saveGame();
+
+    alert(
+
+        "🏭 Branche Bâtiments débloquée !"
+
+    );
+
+}
+
+//====================================================
+// RECHERCHE VILLE
+//====================================================
+
+function unlockCityBranch(){
+
+    if(cityTechUnlocked){
+
+        alert("Déjà débloqué.");
+
+        return;
+
+    }
+
+    if(score < 20000){
+
+        alert("20000 💎 nécessaires.");
+
+        return;
+
+    }
+
+    score -= 20000;
+
+    cityTechUnlocked = true;
+
+    updateScore();
+
+    saveGame();
+
+    alert(
+
+        "🏙️ Branche Ville débloquée !"
+
+    );
+
+}
+
+//====================================================
+// RECHERCHE ENERGIE
+//====================================================
+
+function unlockEnergyBranch(){
+
+    if(energyTechUnlocked){
+
+        alert("Déjà débloqué.");
+
+        return;
+
+    }
+
+    if(score < 25000){
+
+        alert("25000 💎 nécessaires.");
+
+        return;
+
+    }
+
+    score -= 25000;
+
+    energyTechUnlocked = true;
+
+    updateScore();
+
+    saveGame();
+
+    alert(
+
+        "⚡ Branche Énergie débloquée !"
+
+    );
+
+}
+
+//====================================================
+// EVENEMENTS
+//====================================================
+
+if(robotTechButton){
+
+    robotTechButton.addEventListener(
+
+        "click",
+
+        unlockRobotBranch
+
+    );
+
+}
+
+if(buildingTechButton){
+
+    buildingTechButton.addEventListener(
+
+        "click",
+
+        unlockBuildingBranch
+
+    );
+
+}
+
+if(cityTechButton){
+
+    cityTechButton.addEventListener(
+
+        "click",
+
+        unlockCityBranch
+
+    );
+
+}
+
+if(energyTechButton){
+
+    energyTechButton.addEventListener(
+
+        "click",
+
+        unlockEnergyBranch
+
+    );
+
+}
+
+//====================================================
+// OUVERTURE PAR DOUBLE CLIC
+//====================================================
+
+labButton.addEventListener(
+
+    "dblclick",
+
+    openResearchMenu
+
+);
+
+//====================================================
+// SAUVEGARDE DES RECHERCHES
+//====================================================
+
+const oldSaveGame = saveGame;
+
+saveGame = function(){
+
+    oldSaveGame();
+
+    const save =
+
+    JSON.parse(
+
+        localStorage.getItem(
+
+            "FutureClickerSave"
+
+        )
+
+    );
+
+    save.robotTechUnlocked =
+    robotTechUnlocked;
+
+    save.buildingTechUnlocked =
+    buildingTechUnlocked;
+
+    save.cityTechUnlocked =
+    cityTechUnlocked;
+
+    save.energyTechUnlocked =
+    energyTechUnlocked;
+
+    localStorage.setItem(
+
+        "FutureClickerSave",
+
+        JSON.stringify(save)
+
+    );
+
+};
+
+console.log(
+    "🌳 Arbre technologique chargé."
+);
+
+//====================================================
+// PARTIE 6
+// FINALISATION DU JEU
+//====================================================
+
+//====================================================
+// SUCCÈS
 //====================================================
 
 const achievements = [
@@ -1040,23 +1509,8 @@ const achievements = [
 {
 
 id:"firstClick",
-
 name:"👆 Premier clic",
-
 description:"Cliquer une première fois.",
-
-unlocked:false
-
-},
-
-{
-
-id:"firstFinger",
-
-name:"☝ Premier doigt",
-
-description:"Acheter un doigt amélioré.",
-
 unlocked:false
 
 },
@@ -1064,23 +1518,8 @@ unlocked:false
 {
 
 id:"firstRobot",
-
 name:"🤖 Premier robot",
-
-description:"Acheter un robot.",
-
-unlocked:false
-
-},
-
-{
-
-id:"firstBattery",
-
-name:"🔋 Première batterie",
-
-description:"Acheter une batterie.",
-
+description:"Construire un robot.",
 unlocked:false
 
 },
@@ -1088,126 +1527,135 @@ unlocked:false
 {
 
 id:"firstFactory",
-
 name:"🏭 Première usine",
-
-description:"Acheter une usine.",
-
+description:"Construire une usine.",
 unlocked:false
 
 },
 
 {
 
-id:"hundredCrystals",
+id:"firstLab",
+name:"🧪 Scientifique",
+description:"Construire un laboratoire.",
+unlocked:false
 
+},
+
+{
+
+id:"hundred",
 name:"💎 Collectionneur",
-
-description:"Posséder 100 cristaux.",
-
+description:"Atteindre 100 cristaux.",
 unlocked:false
 
 },
 
 {
 
-id:"thousandCrystals",
+id:"thousand",
+name:"💎 Riche",
+description:"Atteindre 1000 cristaux.",
+unlocked:false
 
-name:"💎 Millionnaire",
+},
 
-description:"Posséder 1000 cristaux.",
+{
 
+id:"million",
+name:"👑 Empire",
+description:"Atteindre 1 000 000 cristaux.",
 unlocked:false
 
 }
 
 ];
 
-function createAchievements(){
+//====================================================
+// DEBLOQUER UN SUCCES
+//====================================================
 
-    achievementList.innerHTML = "";
+function unlockAchievement(id){
 
-    achievements.forEach(function(a){
-
-        const div = document.createElement("div");
-
-        div.className = "achievement";
-
-        div.id = a.id;
-
-        div.innerHTML =
-
-        "<b>"+a.name+"</b><br>"+a.description;
-
-        achievementList.appendChild(div);
-
-    });
-
-}
-
-function refreshAchievements(){
-
-    achievements.forEach(function(a){
-
-        const element = document.getElementById(a.id);
-
-        if(!element){
-
-            return;
-
-        }
-
-        if(a.unlocked){
-
-            element.classList.add("unlocked");
-
-        }
-
-        else{
-
-            element.classList.remove("unlocked");
-
-        }
-
-    });
-
-}
-
-function unlock(id){
-
-    const success = achievements.find(
+    const achievement = achievements.find(
 
         a => a.id === id
 
     );
 
-    if(!success){
+    if(!achievement){
 
         return;
 
     }
 
-    if(success.unlocked){
+    if(achievement.unlocked){
 
         return;
 
     }
 
-    success.unlocked = true;
-
-    refreshAchievements();
-
-    saveGame();
+    achievement.unlocked = true;
 
     showNotification(
 
-        "🏆 Succès débloqué !",
+        "🏆 Succès",
 
-        success.name
+        achievement.name
 
     );
 
+    saveGame();
+
 }
+
+//====================================================
+// VERIFICATION
+//====================================================
+
+function checkAchievements(){
+
+    if(score >= 100){
+
+        unlockAchievement("hundred");
+
+    }
+
+    if(score >= 1000){
+
+        unlockAchievement("thousand");
+
+    }
+
+    if(score >= 1000000){
+
+        unlockAchievement("million");
+
+    }
+
+    if(robotCount > 0){
+
+        unlockAchievement("firstRobot");
+
+    }
+
+    if(factoryLevel > 0){
+
+        unlockAchievement("firstFactory");
+
+    }
+
+    if(labLevel > 0){
+
+        unlockAchievement("firstLab");
+
+    }
+
+}
+
+//====================================================
+// NOTIFICATION
+//====================================================
 
 function showNotification(title,message){
 
@@ -1217,7 +1665,9 @@ function showNotification(title,message){
 
     notif.innerHTML =
 
-    "<b>"+title+"</b><br>"+message;
+    "<h3>"+title+"</h3>"+
+
+    "<p>"+message+"</p>";
 
     document.body.appendChild(notif);
 
@@ -1225,73 +1675,140 @@ function showNotification(title,message){
 
         notif.classList.add("show");
 
-    },50);
+    },100);
+
+    setTimeout(function(){
+
+        notif.classList.remove("show");
+
+    },3500);
 
     setTimeout(function(){
 
         notif.remove();
 
-    },3500);
+    },4000);
 
 }
 
-function checkAchievements(){
+//====================================================
+// JOUR / NUIT
+//====================================================
 
-    if(score >= 100){
+function changeSky(){
 
-        unlock("hundredCrystals");
+    isNight = !isNight;
+
+    if(isNight){
+
+        sky.classList.add("night");
 
     }
 
-    if(score >= 1000){
+    else{
 
-        unlock("thousandCrystals");
+        sky.classList.remove("night");
 
     }
 
 }
 
-function developLab(){
+// Toutes les deux minutes
 
-    if(labResearch){
+setInterval(
 
-        alert("Recherche déjà effectuée !");
+    changeSky,
 
-        return;
+    120000
 
-    }
+);
 
-    if(score < 5000){
+//====================================================
+// SAUVEGARDE AUTOMATIQUE
+//====================================================
 
-        alert("Pas assez de cristaux !");
-
-        return;
-
-    }
-
-    score -= 5000;
-
-    labResearch = true;
-
-    updateScore();
+setInterval(function(){
 
     saveGame();
 
-    upgradeLabResearch.textContent =
-"✔ Recherche terminée";
+},5000);
 
-upgradeLabResearch.disabled = true;
+//====================================================
+// MISE A JOUR AUTOMATIQUE
+//====================================================
 
-    alert("🧪 Laboratoire amélioré !");
+setInterval(function(){
+
+    updateScore();
+
+    checkAchievements();
+
+},250);
+
+//====================================================
+// REINITIALISATION
+//====================================================
+
+function resetGame(){
+
+    if(
+
+        !confirm(
+
+            "Voulez-vous vraiment recommencer ?"
+
+        )
+
+    ){
+
+        return;
+
+    }
+
+    localStorage.removeItem(
+
+        "FutureClickerSave"
+
+    );
+
+    location.reload();
+
 }
 
-upgradeLabResearch.addEventListener(
-    "click",
-    developLab
+//====================================================
+// RACCOURCI CLAVIER
+//====================================================
+
+document.addEventListener(
+
+    "keydown",
+
+    function(event){
+
+        if(
+
+            event.ctrlKey &&
+
+            event.key === "r"
+
+        ){
+
+            event.preventDefault();
+
+            resetGame();
+
+        }
+
+    }
+
 );
 
-createAchievements();
+//====================================================
+// DEMARRAGE
+//====================================================
 
-refreshAchievements();
+updateScore();
 
-loadGame();
+checkAchievements();
+
+console.log("✅ Future Clicker chargé avec succès !");
