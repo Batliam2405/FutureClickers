@@ -119,6 +119,9 @@ document.getElementById("labContainer");
 const buildings =
 document.querySelectorAll(".building");
 
+const researchButton =
+document.getElementById("researchButton");
+
 // Ciel
 const sky =
 document.getElementById("sky");
@@ -475,7 +478,16 @@ function buyLab(){
 
     labButton.textContent = "✔ Laboratoire construit";
 
+    researchButton.style.display = "inline-block";
+
+    labLevel = 1;
+
 }
+
+researchButton.addEventListener(
+    "click",
+    openResearchMenu
+);
 
 labButton.addEventListener(
     "click",
@@ -1004,6 +1016,13 @@ function loadGame(){
     //------------------------------------------------
 
     labLevel = data.labLevel ?? 0;
+
+    if(labLevel >= 1){
+
+    researchButton.style.display =
+    "inline-block";
+
+    }
 
     if(labLevel >= 1){
 
