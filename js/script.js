@@ -317,6 +317,52 @@ console.log(
 // BOUTIQUE ET ACHATS
 //====================================================
 
+function upgradeLabResearch(){
+
+    if(labResearchUnlocked){
+
+        alert("Recherche déjà développée.");
+        return;
+
+    }
+
+    if(score < 5000){
+
+        alert("5000 💎 nécessaires.");
+        return;
+
+    }
+
+    score -= 5000;
+
+    labResearchUnlocked = true;
+
+    updateScore();
+
+    saveGame();
+
+    const button =
+    document.getElementById("upgradeLabResearch");
+
+    if(button){
+
+        button.disabled = true;
+        button.textContent = "✔ Développé";
+
+    }
+
+    const state =
+    document.getElementById("labResearchState");
+
+    if(state){
+
+        state.textContent = "✅ Développé";
+
+    }
+
+    alert("🧪 Recherche terminée !");
+}
+
 //====================================================
 // DOIGT AMÉLIORÉ
 //====================================================
