@@ -836,7 +836,6 @@ function saveGame(){
         labPrice,
 
         labResearch,
-
         labResearchUnlocked,
 
         achievements: achievements,
@@ -900,17 +899,38 @@ function loadGame(){
     labResearch = data.labResearch ?? false;
 
     labPriceText.textContent =
-labPrice + " 💎";
+    labPrice + " 💎";
 
-labResearchUnlocked =
-data.labResearchUnlocked ?? false;
+    labResearchUnlocked =
+    data.labResearchUnlocked ?? false;
 
-if(labResearchUnlocked){
+    if(labResearchUnlocked){
 
-    labResearchState.textContent =
-    "✅ Développé";
+        labResearchState.textContent =
+        "✅ Développé";
+
+        upgradeLabResearch.disabled = true;
+
+    }
+
+    if(labResearch){
+
+    upgradeLabResearch.textContent =
+    "✔ Recherche terminée";
 
     upgradeLabResearch.disabled = true;
+
+    }
+
+    // Reconstruit la ville
+    rebuildCity();
+
+    // Recharge les succès
+    refreshAchievements();
+
+    // Met à jour l'interface
+    updateScore();// Reconstruit la ville
+    rebuildCity();
 
 }
 
