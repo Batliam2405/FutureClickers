@@ -867,68 +867,52 @@ function saveGame(){
 
     const save = {
 
-        //------------------------------------------------
         // Ressources
-        //------------------------------------------------
-
         score: score,
-
         clickPower: clickPower,
 
-        //------------------------------------------------
         // Doigt
-        //------------------------------------------------
-
         fingerLevel: fingerLevel,
         fingerPrice: fingerPrice,
 
-        //------------------------------------------------
         // Robots
-        //------------------------------------------------
-
         robotCount: robotCount,
         robotPrice: robotPrice,
         robotProduction: robotProduction,
 
-        //------------------------------------------------
         // Batteries
-        //------------------------------------------------
-
         batteryLevel: batteryLevel,
         batteryPrice: batteryPrice,
 
-        //------------------------------------------------
         // Usines
-        //------------------------------------------------
-
         factoryLevel: factoryLevel,
         factoryPrice: factoryPrice,
         factoryProduction: factoryProduction,
 
-        //------------------------------------------------
         // Laboratoire
-        //------------------------------------------------
-
         labLevel: labLevel,
         labPrice: labPrice,
 
         labResearch: labResearch,
         labResearchUnlocked: labResearchUnlocked,
 
-        //------------------------------------------------
-        // Date
-        //------------------------------------------------
+        // Arbre technologique
+        robotTechUnlocked: robotTechUnlocked,
+        buildingTechUnlocked: buildingTechUnlocked,
+        cityTechUnlocked: cityTechUnlocked,
+        energyTechUnlocked: energyTechUnlocked,
 
+        // Succès
+        achievements: achievements,
+
+        // Date
         saveDate: Date.now()
 
     };
 
     localStorage.setItem(
-
         "FutureClickerSave",
-
         JSON.stringify(save)
-
     );
 
 }
@@ -1014,6 +998,18 @@ function loadGame(){
 
     labResearchUnlocked =
     data.labResearchUnlocked ?? false;
+
+    robotTechUnlocked =
+data.robotTechUnlocked ?? false;
+
+buildingTechUnlocked =
+data.buildingTechUnlocked ?? false;
+
+cityTechUnlocked =
+data.cityTechUnlocked ?? false;
+
+energyTechUnlocked =
+data.energyTechUnlocked ?? false;
 
     //------------------------------------------------
     // Reconstruction
@@ -1177,9 +1173,6 @@ let energyTechUnlocked = false;
 
 const researchMenu =
 document.getElementById("researchMenu");
-
-const closeResearchButton =
-document.getElementById("closeResearch");
 
 const robotTechButton =
 document.getElementById("openRobotTech");
