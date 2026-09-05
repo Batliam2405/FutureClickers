@@ -39,6 +39,12 @@ let labPrice = 2500;
 let labResearch = false;
 let labResearchUnlocked = false;
 
+// Arbre technologique
+let robotTechUnlocked = false;
+let buildingTechUnlocked = false;
+let cityTechUnlocked = false;
+let energyTechUnlocked = false;
+
 // Jour / Nuit
 let isNight = false;
 
@@ -1157,15 +1163,6 @@ console.log(
 // PARTIE 5
 // LABORATOIRE ET ARBRE TECHNOLOGIQUE
 //====================================================
-
-//====================================================
-// VARIABLES DES RECHERCHES
-//====================================================
-
-let robotTechUnlocked = false;
-let buildingTechUnlocked = false;
-let cityTechUnlocked = false;
-let energyTechUnlocked = false;
 
 //====================================================
 // ELEMENTS HTML
