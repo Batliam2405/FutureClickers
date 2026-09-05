@@ -302,6 +302,15 @@ clickButton.addEventListener(
     clickReactor
 );
 
+if(upgradeLabResearchButton){
+
+    upgradeLabResearchButton.addEventListener(
+        "click",
+        upgradeLabResearch
+    );
+
+}
+
 //====================================================
 // PREMIER DEMARRAGE
 //====================================================
@@ -1263,6 +1272,9 @@ document.getElementById("openCityTech");
 const energyTechButton =
 document.getElementById("openEnergyTech");
 
+const upgradeLabResearchButton =
+document.getElementById("upgradeLabResearch");
+
 //====================================================
 // OUVERTURE DU LABORATOIRE
 //====================================================
@@ -1298,6 +1310,40 @@ if(closeResearchButton){
         closeResearchMenu
 
     );
+
+}
+
+function upgradeLabResearch(){
+
+    if(labResearchUnlocked){
+
+        alert("Le laboratoire est déjà développé.");
+        return;
+
+    }
+
+    if(score < 5000){
+
+        alert("Il faut 5000 💎.");
+        return;
+
+    }
+
+    score -= 5000;
+
+    labResearchUnlocked = true;
+
+    updateScore();
+
+    saveGame();
+
+    document.getElementById("labResearchState").textContent =
+    "✅ Développé";
+
+    upgradeLabResearchButton.disabled = true;
+
+    upgradeLabResearchButton.textContent =
+    "✔ Développé";
 
 }
 
