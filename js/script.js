@@ -1004,6 +1004,16 @@ function loadGame(){
     //------------------------------------------------
 
     labLevel = data.labLevel ?? 0;
+
+    if(labLevel >= 1){
+
+    labButton.disabled = true;
+
+    labButton.textContent =
+    "✔ Laboratoire construit";
+
+    }
+
     labPrice = data.labPrice ?? 2500;
 
     labResearch =
