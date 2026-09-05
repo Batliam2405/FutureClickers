@@ -1353,35 +1353,17 @@ function upgradeLabResearch(){
 
 function unlockRobotBranch(){
 
-    if(robotTechUnlocked){
+    if(!robotTechUnlocked){
 
-        alert("Déjà débloqué.");
-
-        return;
-
-    }
-
-    if(score < 10000){
-
-        alert("10000 💎 nécessaires.");
+        alert("Débloquez d'abord la branche Robots.");
 
         return;
 
     }
 
-    score -= 10000;
-
-    robotTechUnlocked = true;
-
-    updateScore();
-
-    saveGame();
-
-    alert(
-
-        "🤖 Branche Robots débloquée !"
-
-    );
+    document.getElementById(
+        "robotTreeMenu"
+    ).style.display = "flex";
 
 }
 
