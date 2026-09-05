@@ -302,15 +302,6 @@ clickButton.addEventListener(
     clickReactor
 );
 
-if(upgradeLabResearchButton){
-
-    upgradeLabResearchButton.addEventListener(
-        "click",
-        upgradeLabResearch
-    );
-
-}
-
 //====================================================
 // PREMIER DEMARRAGE
 //====================================================
@@ -1274,6 +1265,15 @@ document.getElementById("openEnergyTech");
 
 const upgradeLabResearchButton =
 document.getElementById("upgradeLabResearch");
+
+if(upgradeLabResearchButton){
+
+    upgradeLabResearchButton.addEventListener(
+        "click",
+        upgradeLabResearch
+    );
+
+}
 
 //====================================================
 // OUVERTURE DU LABORATOIRE
