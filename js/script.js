@@ -465,6 +465,8 @@ function buyLab(){
 
     labLevel = 1;
 
+    researchButton.style.display = "inline-block";
+
     spawnLab();
 
     updateScore();
@@ -477,10 +479,6 @@ function buyLab(){
     labButton.disabled = true;
 
     labButton.textContent = "✔ Laboratoire construit";
-
-    researchButton.style.display = "inline-block";
-
-    labLevel = 1;
 
 }
 
