@@ -1797,6 +1797,8 @@ document.addEventListener(
 // DEMARRAGE
 //====================================================
 
+loadGame();
+
 updateScore();
 
 checkAchievements();
