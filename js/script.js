@@ -23,6 +23,10 @@ let robotCount = 0;
 let robotPrice = 50;
 let robotProduction = 1;
 
+// Améliorations robots
+let robotMultiplier = 1;
+let robotUpgrade1Unlocked = false;
+
 // Batteries
 let batteryLevel = 0;
 let batteryPrice = 150;
@@ -151,11 +155,7 @@ document.getElementById("achievementList");
 
 function updateScore(){
 
-    const production =
-
-        robotCount * robotProduction +
-
-        factoryLevel * factoryProduction;
+    const production = getProduction();
 
     scoreText.innerHTML =
 
@@ -303,6 +303,12 @@ clickButton.addEventListener(
     "click",
     clickReactor
 );
+
+const robotUpgrade1Button = document.getElementById("robotUpgrade1");
+
+if (robotUpgrade1Button) {
+    robotUpgrade1Button.addEventListener("click", buyRobotUpgrade1);
+}
 
 //====================================================
 // PREMIER DEMARRAGE
@@ -636,19 +642,10 @@ labButton.addEventListener(
 //====================================================
 
 function getProduction(){
-
     return (
-
-        robotCount *
-
-        robotProduction +
-
-        factoryLevel *
-
-        factoryProduction
-
+        robotCount * robotProduction * robotMultiplier +
+        factoryLevel * factoryProduction
     );
-
 }
 
 console.log(
@@ -973,6 +970,9 @@ function saveGame(){
         cityTechUnlocked: cityTechUnlocked,
         energyTechUnlocked: energyTechUnlocked,
 
+        robotMultiplier: robotMultiplier,
+        robotUpgrade1Unlocked: robotUpgrade1Unlocked,
+
         // Succès
         achievements: achievements,
 
@@ -1098,6 +1098,9 @@ data.cityTechUnlocked ?? false;
 
 energyTechUnlocked =
 data.energyTechUnlocked ?? false;
+
+    robotMultiplier = save.robotMultiplier ?? 1;
+robotUpgrade1Unlocked = save.robotUpgrade1Unlocked ?? false;
 
     //------------------------------------------------
     // Reconstruction
@@ -1366,29 +1369,160 @@ robotTechButton.addEventListener(
 
 function unlockRobotBranch(){
 
-    if(!robotTechUnlocked){
+    // Si la branche est déjà débloquée,
+    // on ouvre directement son interface.
+    if(robotTechUnlocked){
 
-        if(score < 10000){
+        openRobotTree();
 
-            alert("10000 💎 nécessaires.");
-            return;
-
-        }
-
-        score -= 10000;
-
-        robotTechUnlocked = true;
-
-        saveGame();
-
-        updateScore();
+        return;
 
     }
 
-    document.getElementById("robotTreeMenu").style.display = "flex";
+    if(score < 10000){
+
+        alert("10000 💎 nécessaires.");
+
+        return;
+
+    }
+
+    score -= 10000;
+
+    robotTechUnlocked = true;
+
+    updateScore();
+
+    saveGame();
+
+    alert("🤖 Branche Robots débloquée !");
 
 }
 
+//====================================================
+// INTERFACE ARBRE ROBOTS
+//====================================================
+
+const robotTreeMenu =
+document.getElementById("robotTreeMenu");
+
+const closeRobotTreeButton =
+document.getElementById("closeRobotTree");
+
+const robotUpgrade1Button =
+document.getElementById("robotUpgrade1");
+
+function openRobotTree(){
+
+    if(!robotTechUnlocked){
+
+        alert("Débloquez d'abord la branche Robots.");
+
+        return;
+
+    }
+
+    robotTreeMenu.style.display = "flex";
+
+    updateRobotTreeUI();
+
+}
+
+function closeRobotTree(){
+
+    robotTreeMenu.style.display = "none";
+
+}
+
+// Fermeture
+
+if(closeRobotTreeButton){
+
+    closeRobotTreeButton.addEventListener(
+        "click",
+        closeRobotTree
+    );
+
+}
+
+//====================================================
+// AMELIORATION ROBOTS I
+//====================================================
+
+function buyRobotUpgrade1(){
+
+    if(robotUpgrade1Unlocked){
+
+        alert("Cette amélioration est déjà achetée.");
+
+        return;
+
+    }
+
+    if(score < 10000){
+
+        alert("Il faut 10000 💎 pour cette amélioration.");
+
+        return;
+
+    }
+
+    score -= 10000;
+
+    robotUpgrade1Unlocked = true;
+
+    updateScore();
+
+    updateRobotUpgrade1Button();
+
+    updateRobotTreeUI();
+
+    saveGame();
+
+    alert("🤖 Robots améliorés I débloqué !");
+
+}
+
+//====================================================
+// MISE A JOUR INTERFACE ROBOTS
+//====================================================
+
+function updateRobotTreeUI(){
+
+    if(!robotUpgrade1Button){
+
+        return;
+
+    }
+
+    if(robotUpgrade1Unlocked){
+
+        robotUpgrade1Button.disabled = true;
+
+        robotUpgrade1Button.textContent =
+        "✔ Amélioration achetée";
+
+    }
+
+    else{
+
+        robotUpgrade1Button.disabled = false;
+
+        robotUpgrade1Button.innerHTML =
+        "Développer<br>10000 💎";
+
+    }
+
+}
+
+if(robotUpgrade1Button){
+
+    robotUpgrade1Button.addEventListener(
+        "click",
+        buyRobotUpgrade1
+    );
+
+}
 //====================================================
 // RECHERCHE BATIMENTS
 //====================================================
@@ -1885,8 +2019,45 @@ document.addEventListener(
 
 loadGame();
 
+updateRobotUpgrade1Button();
+
 updateScore();
 
 checkAchievements();
 
 console.log("✅ Future Clicker chargé avec succès !");
+
+function buyRobotUpgrade1() {
+    if (robotUpgrade1Unlocked) {
+        alert("Cette amélioration est déjà débloquée !");
+        return;
+    }
+
+    if (crystals < 10000) {
+        alert("Tu n'as pas assez de cristaux !");
+        return;
+    }
+
+    crystals -= 10000;
+    robotMultiplier = 2;
+    robotUpgrade1Unlocked = true;
+
+    updateScore();
+    saveGame();
+
+    alert("Robots améliorés I débloqué ! Production des robots doublée.");
+}
+
+function updateRobotUpgrade1Button() {
+    const button = document.getElementById("robotUpgrade1");
+
+    if (!button) return;
+
+    if (robotUpgrade1Unlocked) {
+        button.innerHTML = "Amélioration débloquée ✓";
+        button.disabled = true;
+    } else {
+        button.innerHTML = "Développer<br>10000 💎";
+        button.disabled = false;
+    }
+}
