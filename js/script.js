@@ -41,6 +41,8 @@ let labResearchUnlocked = false;
 
 // Arbre technologique
 let robotTechUnlocked = false;
+// Amélioration Robots I
+let robotUpgrade1Unlocked = false;
 let buildingTechUnlocked = false;
 let cityTechUnlocked = false;
 let energyTechUnlocked = false;
